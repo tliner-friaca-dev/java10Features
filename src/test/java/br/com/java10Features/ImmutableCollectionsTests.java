@@ -1,10 +1,12 @@
 package br.com.java10Features;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,76 +15,73 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ImmutableCollectionsTests {
 
 /* 
-		var valorInteiro = 100;
-		var valorString = "Teste com var!";
-		var valorDouble = getNome();
-		var valorByte = new ByteArrayInputStream(null);
-		
-		var list = List.of("Teste", "com", "var!");
-		for (var elemento : list) {
-		}
-		
-		var lista = new ArrayList<String>();
+		*Immutable Collections
 
-		List.copyOf
-		Set.copyOf
-		Map.copyOf
-		toUnmodifiableList
-		toUnmodifiableSet
-		toUnmodifiableMap
-
-		Optional.orElseThrow()
+		- List.copyOf
+		- Set.copyOf
+		- Map.copyOf
+		- toUnmodifiableList
+		- toUnmodifiableSet
+		- toUnmodifiableMap
  */
  
+	/* List.copyOf */
 	@Test
-	void var_retornaInteiro_quandoSucesso() {
-		var valorInteiro = 100;
-		assertEquals(100, valorInteiro);
+	void list_copyOf_retornaListaInalteravel_quandoSucesso() {
+		var lista = List.of(1,2,3);
+		List<Integer> listaInalteravel = List.copyOf(lista);
+		assertEquals(List.of(1,2,3), listaInalteravel);
 	}
-
+ 
 	@Test
-	void var_retornaString_quandoSucesso() {
-		var valorString = "Teste com var!";
-		assertEquals("Teste com var!", valorString);
+	void list_copyOf_retornaExcecaoAoInserirValorNaListaInalteravel_quandoErro() {
+		var lista = List.of(1,2,3);
+		List<Integer> listaInalteravel = List.copyOf(lista);
+		assertThrows(UnsupportedOperationException.class, () -> adicionaValorNaLista(listaInalteravel).orElseThrow());
 	}
 
+	public Optional<List<Integer>> adicionaValorNaLista(List<Integer> listaInalteravel){
+		listaInalteravel.add(10);
+		return Optional.of(listaInalteravel);
+	}
+
+	/* Set.copyOf */
 	@Test
-	void var_retornaDouble_quandoSucesso() {
-		var valorDouble = getValor();
-		assertEquals(10.50, valorDouble);
+	void set_copyOf_retornaListaInalteravel_quandoSucesso() {
+		var set = Set.of(1,2,3);
+		Set<Integer> setInalteravel = Set.copyOf(set);
+		assertEquals(Set.of(1,2,3), setInalteravel);
 	}
-
-	public double getValor() {
-		return 10.50;
-	}
-
+	
 	@Test
-	void var_retornaByte_quandoSucesso() {
-		var valorByte = new ByteArrayInputStream(new byte[2]);
-		assertEquals(valorByte, valorByte);
+	void set_copyOf_retornaExcecaoAoInserirValorNaListaInalteravel_quandoErro() {
+		var set = Set.of(1,2,3);
+		Set<Integer> setInalteravel = Set.copyOf(set);
+		assertThrows(UnsupportedOperationException.class, () -> adicionaValorNaLista(setInalteravel).orElseThrow());
 	}
 
+	public Optional<Set<Integer>> adicionaValorNaLista(Set<Integer> setInalteravel){
+		setInalteravel.add(10);
+		return Optional.of(setInalteravel);
+	}
+	
+	/* Map.copyOf */
 	@Test
-	void var_retornaList_quandoSucesso() {
-		var list = List.of("Teste", "com", "var!");
-		assertEquals("[Teste, com, var!]", list.toString());
+	void map_copyOf_retornaListaInalteravel_quandoSucesso() {
+		var map = Map.of("um",1);
+		Map<String, Integer> mapInalteravel = Map.copyOf(map);
+		assertEquals("{um=1}", mapInalteravel.toString());
 	}
-
+	
 	@Test
-	void var_retornaString_varDeclaradoDentrodoFor_quandoSucesso() {
-		var retorno = "";
-		var list = List.of("Teste", "com", "var!");
-		for (var elemento : list) {
-			retorno = retorno + " " + elemento;
-		}
-		assertEquals(" Teste com var!", retorno);
+	void map_copyOf_retornaExcecaoAoInserirValorNaListaInalteravel_quandoErro() {
+		var map = Map.of("um",1);
+		Map<String, Integer> mapInalteravel = Map.copyOf(map);
+		assertThrows(UnsupportedOperationException.class, () -> adicionaValorNaLista(mapInalteravel).orElseThrow());
 	}
 
-	@Test
-	void var_retornaArrayList_quandoSucesso() {
-		var lista = new ArrayList<String>();
-		lista.add("Teste com var!");
-		assertEquals("Teste com var!", lista.get(0));
+	public Optional<Map<String, Integer>> adicionaValorNaLista(Map<String, Integer> mapInalteravel){
+		mapInalteravel.put("dois", 2);
+		return Optional.of(mapInalteravel);
 	}
-
 }

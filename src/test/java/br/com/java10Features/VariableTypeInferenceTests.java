@@ -14,21 +14,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 class VariableTypeInferenceTests {
 
 /* 
-		var valorInteiro = 100;
-		var valorString = "Teste com var!";
-		var valorDouble = getNome();
-		var valorByte = new ByteArrayInputStream(null);
+		*Local-Variable Type Inference ("var")
+		- var valorInteiro = 100;
+		- var valorString = "Teste com var!";
+		- var valorDouble = getNome();
+		- var valorByte = new ByteArrayInputStream(null);
 		
-		var list = List.of("Teste", "com", "var!");
-		for (var elemento : list) {
-		}
-		for (var j = 0; j < 50; j++) {
-		}
+		- var list = List.of("Teste", "com", "var!");
+		- for (var elemento : list) {
+		  }
+		- for (var j = 0; j < 50; j++) {
+		  }
 		
-		var lista = new ArrayList<String>();
+		- var lista = new ArrayList<String>();
 
-		var httpClient = HttpClient.newBuilder().build();
-
+		- var httpClient = HttpClient.newBuilder().build();
  */
  
 	@Test
