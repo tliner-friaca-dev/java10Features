@@ -3,6 +3,11 @@ package br.com.java10Features;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,14 +20,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 class ImmutableCollectionsTests {
 
 /* 
-		*Immutable Collections
+	*Immutable Collections
 
-		- List.copyOf
-		- Set.copyOf
-		- Map.copyOf
-		- toUnmodifiableList
-		- toUnmodifiableSet
-		- toUnmodifiableMap
+	- List - List.copyOf
+	- Set - Set.copyOf
+	- Map - Map.copyOf
+	
+	- List - toUnmodifiableList
+	- Set - toUnmodifiableSet
+	- Map - toUnmodifiableMap
  */
  
 	/* List.copyOf */
@@ -84,4 +90,64 @@ class ImmutableCollectionsTests {
 		mapInalteravel.put("dois", 2);
 		return Optional.of(mapInalteravel);
 	}
+	 
+	/* List - toUnmodifiableList */
+	@Test
+	void list_toUnmodifiable_retornaListaInalteravel_quandoSucesso() {
+		var lista = new ArrayList<Integer>();
+		lista.add(1);
+		lista.add(2);
+		lista.add(3);
+		List<Integer> listaInalteravel = Collections.unmodifiableList(lista);
+		assertEquals(List.of(1,2,3), listaInalteravel);
+	}
+ 
+	@Test
+	void list_toUnmodifiable_retornaExcecaoAoInserirValorNaListaInalteravel_quandoErro() {
+		var lista = new ArrayList<Integer>();
+		lista.add(1);
+		lista.add(2);
+		lista.add(3);
+		List<Integer> listaInalteravel = Collections.unmodifiableList(lista);
+		assertThrows(UnsupportedOperationException.class, () -> adicionaValorNaLista(listaInalteravel).orElseThrow());
+	}
+
+	/* Set - toUnmodifiableSet */
+	@Test
+	void set_toUnmodifiable_retornaListaInalteravel_quandoSucesso() {
+		var set = new HashSet<Integer>();
+		set.add(1);
+		set.add(2);
+		set.add(3);
+		Set<Integer> listaInalteravel = Collections.unmodifiableSet(set);
+		assertEquals(Set.of(1,2,3), listaInalteravel);
+	}
+ 
+	@Test
+	void set_toUnmodifiable_retornaExcecaoAoInserirValorNaListaInalteravel_quandoErro() {
+		var set = new HashSet<Integer>();
+		set.add(1);
+		set.add(2);
+		set.add(3);
+		Set<Integer> listaInalteravel = Collections.unmodifiableSet(set);
+		assertThrows(UnsupportedOperationException.class, () -> adicionaValorNaLista(listaInalteravel).orElseThrow());
+	}
+
+	/* Set - toUnmodifiableMap */
+	@Test
+	void map_toUnmodifiable_retornaListaInalteravel_quandoSucesso() {
+		var map = new HashMap<String, Integer>();
+		map.put("um", 1);
+		Map<String, Integer> listaInalteravel = Collections.unmodifiableMap(map);
+		assertEquals("{um=1}", listaInalteravel.toString());
+	}
+ 
+	@Test
+	void map_toUnmodifiable_retornaExcecaoAoInserirValorNaListaInalteravel_quandoErro() {
+		var map = new HashMap<String, Integer>();
+		map.put("um", 1);
+		Map<String, Integer> listaInalteravel = Collections.unmodifiableMap(map);
+		assertThrows(UnsupportedOperationException.class, () -> adicionaValorNaLista(listaInalteravel).orElseThrow());
+	}
+
 }
